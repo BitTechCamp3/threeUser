@@ -1,0 +1,11 @@
+server:
+  port: 8082
+
+spring:
+  r2dbc:
+    url: r2dbc:mysql://127.0.0.1:3306/users?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asi
+    username: root
+    password: root
+    pool:
+      max-size: 100
+      validation-query: SELECT 1
