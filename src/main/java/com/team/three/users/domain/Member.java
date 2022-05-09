@@ -14,12 +14,11 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @Table(value = "member")
 public class Member {
-
-    @Id
     @Column
     private int index;
 
     @Column
+    @Id
     private String userid;
 
     @Column
