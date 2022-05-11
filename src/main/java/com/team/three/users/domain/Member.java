@@ -8,6 +8,7 @@ import org.springframework.data.relational.core.mapping.Table;
 import java.sql.Timestamp;
 
 @Getter
+@Setter
 @Builder
 @ToString
 @NoArgsConstructor
@@ -15,10 +16,10 @@ import java.sql.Timestamp;
 @Table(value = "member")
 public class Member {
     @Column
+    @Id
     private int index;
 
     @Column
-    @Id
     private String userid;
 
     @Column

@@ -8,7 +8,7 @@ import java.security.NoSuchAlgorithmException;
 
 public interface MemberService {
 
-    Mono<Member> registerMember(Member member);
+    Mono<Member> registerMember(Member member) throws NoSuchAlgorithmException;
 
     Mono<MemberResponse> getMember(Member member) throws NoSuchAlgorithmException;
 }

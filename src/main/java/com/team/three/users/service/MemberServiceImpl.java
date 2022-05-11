@@ -30,15 +30,18 @@ public class MemberServiceImpl implements MemberService {
     private String refreshExpiresString;
 
     @Override
-    public Mono<Member> registerMember(Member member) {
-        return null;
+    public Mono<Member> registerMember(Member member) throws NoSuchAlgorithmException {
+        UserEncrypt en = new UserEncrypt();
+        String pwd = en.encrypt(member.getPassword());
+        member.setPassword(pwd);
+        return memberRepository.save(member);
     }
 
     @Override
     public Mono<MemberResponse> getMember(Member member) throws NoSuchAlgorithmException {
         UserEncrypt en = new UserEncrypt();
-        //Mono<Member> mem = memberRepository.findByUseridAndPassword(member.getUserid(), en.encrypt(member.getPassword()));
-        Mono<Member> mem = memberRepository.findByUseridAndPassword(member.getUserid(), member.getPassword());
+        Mono<Member> mem = memberRepository.findByUseridAndPassword(member.getUserid(), en.encrypt(member.getPassword()));
+        //Mono<Member> mem = memberRepository.findByUseridAndPassword(member.getUserid(), member.getPassword());
 
         return mem.flatMap( i -> {
             String accessToken = provider.createJwtToken(i, Long.parseLong(accessExpiresString));

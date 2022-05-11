@@ -22,14 +22,19 @@ public class UserHandler {
     private final MemberService memberService;
 
     public Mono<ServerResponse> userJoin(ServerRequest request) {
-//        Mono<Member> replyMono = request.bodyToMono(Member.class)
-//                .flatMap(reply -> replyService.saveReply(reply))
-//                .log("replyMono is : ");
+        Mono<Member> userMono = request.bodyToMono(Member.class)
+                .flatMap(mem -> {
+                    try {
+                        return memberService.registerMember(mem);
+                    } catch (NoSuchAlgorithmException e) {
+                        throw new RuntimeException(e);
+                    }
+                })
+                .log("register : ");
 
-        return null;
-//                ServerResponse.ok()
-//                .contentType(APPLICATION_JSON)
-//                .body(replyMono, Reply.class).log("writeReply is : ");
+        return ServerResponse.ok()
+                .contentType(APPLICATION_JSON)
+                .body(userMono, MemberResponse.class).log(">>>>>memeber");
     }
 
     public Mono<ServerResponse> userLogin(ServerRequest request) {
