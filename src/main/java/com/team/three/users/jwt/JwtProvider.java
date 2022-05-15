@@ -22,8 +22,8 @@ public class JwtProvider {
         SecretKey key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret));
 
         return Jwts.builder()
-                .claim("memberId", member.getUserid()) // MemberId
-                .claim("memberType", member.getRole()) // MemberType
+                .claim("userId", member.getUserid()) // MemberId
+                .claim("role", member.getRole()) // MemberType
                 .signWith(key, SignatureAlgorithm.HS256) // 해시값
                 .setExpiration(expiration) // 만료시간
                 .compact();

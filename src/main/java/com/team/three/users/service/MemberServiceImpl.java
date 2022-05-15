@@ -41,7 +41,6 @@ public class MemberServiceImpl implements MemberService {
     public Mono<MemberResponse> getMember(Member member) throws NoSuchAlgorithmException {
         UserEncrypt en = new UserEncrypt();
         Mono<Member> mem = memberRepository.findByUseridAndPassword(member.getUserid(), en.encrypt(member.getPassword()));
-        //Mono<Member> mem = memberRepository.findByUseridAndPassword(member.getUserid(), member.getPassword());
 
         return mem.flatMap( i -> {
             String accessToken = provider.createJwtToken(i, Long.parseLong(accessExpiresString));
