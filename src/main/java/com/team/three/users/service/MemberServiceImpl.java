@@ -34,6 +34,7 @@ public class MemberServiceImpl implements MemberService {
         UserEncrypt en = new UserEncrypt();
         String pwd = en.encrypt(member.getPassword());
         member.setPassword(pwd);
+        member.setRole("USER");
         return memberRepository.save(member);
     }
 
